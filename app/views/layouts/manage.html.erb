@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tictactoe</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'main' %>
+  </head>
+
+  <body>
+    <%= render partial: 'navigation' %>
+    <div class='container'>
+      <div id="app" :init-user="initParams(<%= @init_params.to_json %>)">
+        <router-view></router-view>
+        <notifications group="notifications" position="bottom right" />
+      </div>
+
+    </div>
+  </body>
+</html>
