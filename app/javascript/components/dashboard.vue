@@ -13,19 +13,26 @@
 
 <script>
   import { CommonMixin } from 'mixins/common'
+  import { NotificationsMixin } from 'mixins/notifications'
   export default {
-    mixins: [CommonMixin],
+    mixins: [CommonMixin, NotificationsMixin],
     computed: {
     },
     channels: {
       OnlineGamersChannel: {
         connected() {
           console.log('Connected to the chat channel')
-          this.install()
-          this.update()
+          // this.install()
+          // this.update()
         },
         received(data) {
+          console.log(data)
           console.log('Message received')
+          this.notificate({
+            title: 'Новая игра',
+            text: data,
+            type: 'success'
+          })
         }
       }
     },

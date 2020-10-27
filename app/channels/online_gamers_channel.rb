@@ -3,6 +3,7 @@ class OnlineGamersChannel < ApplicationCable::Channel
     logger.info "OnlineGamersChannel => subscribed"
     # stream_for current_user
     current_user.appear(11)
+    stream_for current_user
   end
 
   def unsubscribed
@@ -15,5 +16,12 @@ class OnlineGamersChannel < ApplicationCable::Channel
 
   def away
     current_user.away
+  end
+
+  def create_game
+    ActionCable.server.broadcast 'OnlineGamersChannel', '1'
+    User.all.each do |listener|
+      OnlineGamersChannel.broadcast_to(listener, '11')
+    end
   end
 end

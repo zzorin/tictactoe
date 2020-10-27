@@ -11,6 +11,6 @@ export const CommonMixin = {
     },
     redirectTo(path, id) {
       this.$router.push({ name: path, params: { id: id }})
-    },
+    }
   }
 }

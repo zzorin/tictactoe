@@ -15,7 +15,7 @@
     <div class='container'>
       <div id="app" :init-user="initParams(<%= @init_params.to_json %>)">
         <router-view></router-view>
-        <notifications group="notifications" position="bottom right" />
+        <notifications group="notifications" position="bottom right" @click.native="joinGame"/>
       </div>
 
     </div>

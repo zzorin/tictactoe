@@ -41,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
       initParams(params) {
         this.$store.dispatch('common/setUser', params.user)
         this.$store.dispatch('common/setAccessRules', params.access_rules)
+      },
+      joinGame() {
+        console.log('joinGame')
       }
     },
     mounted() {
