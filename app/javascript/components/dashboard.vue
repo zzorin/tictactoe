@@ -17,8 +17,62 @@
     mixins: [CommonMixin],
     computed: {
     },
+    channels: {
+      OnlineGamersChannel: {
+        connected() {
+          console.log('Connected to the chat channel')
+          this.install()
+          this.update()
+        },
+        received(data) {
+          console.log('Message received')
+        }
+      }
+    },
+    methods: {
+      install() {
+        window.addEventListener("focus", this.update)
+        window.addEventListener("blur", this.update)
+        document.addEventListener("turbolinks:load", this.update)
+        document.addEventListener("visibilitychange", this.update)
+      },
+      update() {
+        this.documentIsActive ? this.appear() : this.away()
+      },
+      appear() {
+        // Вызывает `AppearanceChannel#appear(data)` на сервере.
+        // this.perform("appear", { appearing_on: this.appearingOn })
+        this.$cable.perform({
+          channel: 'OnlineGamersChannel',
+          action: 'appear',
+          data: {
+             appearing_on: this.appearingOn
+          }
+        })
+      },
+
+      away() {
+        // Вызывает `AppearanceChannel#away` на сервере.
+        // this.perform("away")
+        this.$cable.perform({
+          channel: 'OnlineGamersChannel',
+          action: 'away'
+        })
+      },
+      documentIsActive() {
+        return document.visibilityState == "visible" && document.hasFocus()
+      },
+      appearingOn() {
+       const element = document.querySelector("[data-appearing-on]")
+       return element ? element.getAttribute("data-appearing-on") : null
+     }
+    },
     created() {
       console.warn('Dashboard')
+      this.$cable.connection.connect(`/cable?uid=${this.$store.getters['common/user']['id']}&access_token=${this.$store.getters['common/authenticity_token']}`)
+      this.$cable.subscribe({
+        channel: 'OnlineGamersChannel'
+      })
     }
   }
 </script>

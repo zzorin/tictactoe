@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     mounted() {
       this.$store.dispatch('common/setAuthenticityToken')
-      this.$cable.connection.connect(`/cable?uid=${this.$store.getters['common/user']['id']}&access_token=${this.$store.getters['common/authenticity_token']}`)
-      this.$cable.subscribe({
-        channel: 'OnlineGamersChannel'
-      })
+      // this.$cable.connection.connect(`/cable?uid=${this.$store.getters['common/user']['id']}&access_token=${this.$store.getters['common/authenticity_token']}`)
+      // this.$cable.subscribe({
+      //   channel: 'OnlineGamersChannel'
+      // })
     }
   }).$mount('#app')
 })
