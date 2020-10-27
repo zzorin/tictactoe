@@ -1,4 +1,7 @@
 import Dashboard from 'components/dashboard'
+import GamesIndex from 'components/games/index'
+import GameNew from 'components/games/new'
+import GameShow from 'components/games/show'
 // import ContestsIndex from 'components/contests/index'
 // import ContestShow from 'components/contests/show'
 // import CriterionsIndex from 'components/criterions/index'
@@ -19,88 +22,25 @@ export const routes = [
     name: 'dashboard',
     path: '/',
     component: Dashboard,
-    props: true//,
-    // children: [
-    //   {
-    //     name: 'contests',
-    //     path: 'contests',
-    //     component: ContestsIndex,
-    //     children: [
-    //       {
-    //         name: 'contest_show',
-    //         path: '/contests/:id',
-    //         component: ContestShow,
-    //         children: [
-    //           {
-    //             name: 'criterions',
-    //             path: '/contests/:id/criterions',
-    //             component: CriterionsIndex
-    //           },
-    //           {
-    //             name: 'participants',
-    //             path: '/contests/:id/participants',
-    //             component: ParticipantsIndex,
-    //             children: [
-    //               {
-    //                 name: 'participant_new',
-    //                 path: '/contests/:id/participants/new',
-    //                 component: ParticipantNew
-    //               },
-    //               {
-    //                 name: 'participant_edit',
-    //                 path: '/contests/:id/participants/:participant_id/edit',
-    //                 component: ParticipantEdit
-    //               }
-    //             ]
-    //           },
-    //           {
-    //             name: 'experts',
-    //             path: '/contests/:id/experts',
-    //             component: ExpertsIndex,
-    //             children: [
-    //               {
-    //                 name: 'expert_new',
-    //                 path: '/contests/:id/experts/new',
-    //                 component: ExpertNew
-    //               },
-    //               {
-    //                 name: 'expert_edit',
-    //                 path: '/contests/:id/experts/:expert_id/edit',
-    //                 component: ExpertEdit
-    //               },
-    //               {
-    //                 name: 'marks',
-    //                 path: '/contests/:id/experts/:expert_id/marks',
-    //                 component: MarksIndex
-    //               }
-    //             ]
-    //           },
-    //           {
-    //             name: 'nominations',
-    //             path: '/contests/:id/nominations',
-    //             component: NominationsIndex
-    //           },
-    //           {
-    //             name: 'results',
-    //             path: '/contests/:id/results',
-    //             component: ResultsIndex
-    //           }
-    //         ]
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     name: 'permissions',
-    //     path: 'permissions',
-    //     component: PermissionsIndex,
-    //     children: [
-    //       {
-    //         name: 'permission_new',
-    //         path: '/permissions/new',
-    //         component: PermissionNew
-    //       }
-    //     ]
-    //   }
-    // ]
+    props: true,
+    children: [
+      {
+        name: 'games',
+        path: '/',
+        component: GamesIndex,
+        children: [
+          {
+            name: 'game_new',
+            path: '/games/new',
+            component: GameNew
+          },
+          {
+            name: 'game_show',
+            path: '/games/:id',
+            component: GameShow
+          }
+        ]
+      }
+    ]
   }
 ]

@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <%= render partial: 'navigation' %>
+    <%= render_navigation %>
     <div class='container'>
       <div id="app" :init-user="initParams(<%= @init_params.to_json %>)">
         <router-view></router-view>

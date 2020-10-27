@@ -4,6 +4,11 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    raise user.inspect
+    if user.present?
+      if true
+        can :manage, :all
+      end
+    end
+
   end
 end
