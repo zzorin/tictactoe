@@ -3,10 +3,14 @@
     <div v-if='isCurrentPage("games")' class="contests-list margin-bottom-40">
       <h1>История игр</h1>
       <template>
-        <button type="button"
-                class='btn btn-blue mt-3'>
+        <router-link
+                     type="button"
+                     class="btn btn-blue mt-4 mb-3"
+                     :to="{
+                       name: 'game_new'
+                     } ">
           Новая игра
-        </button>
+        </router-link>
       </template>
     </div>
     <router-view></router-view>
@@ -19,5 +23,8 @@
 
   export default {
     mixins: [CommonMixin],
+    created() {
+      console.warn('Игры')
+    }
   }
 </script>

@@ -1,13 +1,17 @@
 <template>
   <div>
-    <div v-if='isCurrentPage("games")' class="contests-list margin-bottom-40">
-      <h1>Список конкурсов</h1>
-      <template v-if='access_rules.contests.new'>
-        <button type="button"
-                class='btn btn-blue mt-3'>
-          Добавить конкурс
-        </button>
-      </template>
+    <div v-if='isCurrentPage("game_new")' class="contests-list margin-bottom-40">
+      <h1>Новая игра</h1>
+      <div>
+        <game-settings>
+        </game-settings>
+        <span class='btn btn-green'
+          Сохранить
+        </span>
+        <span class='btn btn-light-blue'>
+          Отменить
+        </span>
+      </div>
     </div>
     <router-view></router-view>
   </div>
@@ -16,8 +20,15 @@
 <script>
   import { CommonMixin } from 'mixins/common'
   import { mapState, mapMutations, mapActions } from 'vuex'
+  import GameSettings from 'components/games/game-settings'
 
   export default {
-
+    mixins: [CommonMixin],
+    components: {
+      GameSettings
+    },
+    created() {
+      console.warn('New game')
+    }
   }
 </script>

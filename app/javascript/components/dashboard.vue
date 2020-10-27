@@ -16,6 +16,9 @@
   export default {
     mixins: [CommonMixin],
     computed: {
+    },
+    created() {
+      console.warn('Dashboard')
     }
   }
 </script>
