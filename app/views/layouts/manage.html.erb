@@ -15,7 +15,23 @@
     <div class='container'>
       <div id="app" :init-user="initParams(<%= @init_params.to_json %>)">
         <router-view></router-view>
-        <notifications group="notifications" position="bottom right" @click.native="joinGame"/>
+        <!-- <notifications group="notifications" position="bottom right" @click.native="joinGame(props)"/> -->
+        <notifications group="notifications"
+               position="bottom right">
+           <template slot="body" slot-scope="props">
+            <div>
+                <a class="title">
+                  {{props.item.title}}
+                </a>
+                <a class="close" @click="props.close">
+                  <i class="fa fa-fw fa-close"></i>
+                </a>
+                <a :href="'/#games/' + props.item.text">
+                  Перейти к игре
+                </a>
+            </div>
+          </template>
+        </notifications>
       </div>
 
     </div>
