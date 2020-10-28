@@ -19,13 +19,6 @@
           Новая игра
         </button>
       </div>
-      <!-- <div>
-        <button type="button"
-        class='btn btn-blue mt-3'
-        @click='createGame'>
-          Новая игра
-        </button>
-      </div> -->
       <div class="">
         <table>
           <thead>
@@ -77,27 +70,28 @@
             return
           }
           if (data.status == 200) {
-            this.notificate({
-              title: data.notifications.title,
-              text: data.notifications.text
-            })
+            // this.notificate({
+            //   title: data.notifications.title,
+            //   text: data.notifications.text
+            // })
+            this.broadcastGame(data.id)
             this.clearNewGame()
             this.$router.push(`games/${data.id}`)
           }
 
         })
       },
-      // createGame() {
-      //   // Вызывает `AppearanceChannel#appear(data)` на сервере.
-      //   // this.perform("appear", { appearing_on: this.appearingOn })
-      //   this.$cable.perform({
-      //     channel: 'OnlineGamersChannel',
-      //     action: 'create_game',
-      //     data: {
-      //        appearing_on: '11'
-      //     }
-      //   })
-      // }
+      broadcastGame(game_id) {
+        // Вызывает `AppearanceChannel#appear(data)` на сервере.
+        // this.perform("appear", { appearing_on: this.appearingOn })
+        this.$cable.perform({
+          channel: 'OnlineGamersChannel',
+          action: 'create_game',
+          data: {
+             game_id: game_id
+          }
+        })
+      }
     },
     created() {
       console.warn('Игры')
