@@ -82,7 +82,7 @@
               text: data.notifications.text
             })
             this.clearNewGame()
-            this.getGames()
+            this.$router.push(`games/${data.id}`)
           }
 
         })

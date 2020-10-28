@@ -1,20 +1,10 @@
 <template>
   <div>
     <table>
-      <tr>
-        <td>1</td>
-        <td>1</td>
-        <td>1</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+      <tr v-for='row in currentGame.size'>
+        <td v-for='col in currentGame.size'>
+          1
+        </td>
       </tr>
     </table>
   </div>
@@ -26,8 +16,22 @@
 
   export default {
     mixins: [CommonMixin],
+    computed: {
+      ...mapState( 'games', ['currentGame']),
+      id() {
+        return this.$route.params.id
+      }
+    },
+    methods: {
+      ...mapActions('games', ['getGame']),
+      selfGetGame() {
+        let params = { id: this.id }
+        this.getGame(params)
+      },
+    },
     created() {
-      console.warn('New game')
+      console.warn('Новая игра')
+      this.selfGetGame()
     }
   }
 </script>
