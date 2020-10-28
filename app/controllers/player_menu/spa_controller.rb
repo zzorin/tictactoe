@@ -1,4 +1,4 @@
-class Game::SpaController < Game::ApplicationController
+class PlayerMenu::SpaController < PlayerMenu::ApplicationController
   authorize_resource :spa, class: false
 
   include Manage::AccessRules

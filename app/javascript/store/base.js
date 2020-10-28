@@ -1,6 +1,6 @@
 import { commonStore } from 'store/common'
 // import { permissionsStore } from 'store/permissions'
-// import { contestsStore } from 'store/contests'
+import { gamesStore } from 'store/games'
 // import { criterionsStore } from 'store/criterions'
 // import { participantsStore } from 'store/participants'
 // import { nominationsStore } from 'store/nominations'
@@ -8,9 +8,9 @@ import { commonStore } from 'store/common'
 // import { marksStore } from 'store/marks'
 export default {
   modules: {
-    common: { namespaced: true, ...commonStore }//,
+    common: { namespaced: true, ...commonStore },
     // permissions: { namespaced: true, ...permissionsStore },
-    // contests: { namespaced: true, ...contestsStore },
+    games: { namespaced: true, ...gamesStore },
     // criterions: { namespaced: true, ...criterionsStore },
     // participants: { namespaced: true, ...participantsStore },
     // nominations: { namespaced: true, ...nominationsStore },

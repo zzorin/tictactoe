@@ -1,4 +1,4 @@
-class Game::ApplicationController < ApplicationController
+class PlayerMenu::ApplicationController < ApplicationController
   protect_from_forgery with: :exception
   layout 'manage'
 

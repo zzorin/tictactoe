@@ -26,7 +26,7 @@ export const routes = [
     children: [
       {
         name: 'games',
-        path: '/',
+        path: 'games',
         component: GamesIndex,
         children: [
           {

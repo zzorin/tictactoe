@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'game/spa#index'
+  root 'dashboard#index'
 
-  namespace :game do
+  namespace :player_menu do
     root to: 'spa#index'
+  end
+
+  resources :games do
   end
 end

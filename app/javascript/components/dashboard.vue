@@ -1,12 +1,16 @@
 <template>
   <div>
-      <div v-if='isCurrentPage("dashboard")' class='mt-3 user-nav'>
-        <router-link :to="{name: 'contests'}">Конкурсы</router-link>
-        <!-- <router-link :to="{name: 'permissions'}"
-                     v-if='access_rules.permissions.manage'> -->
-          Права доступа
-        </router-link>
-      </div>
+    <div>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+             <router-link :to="{name: 'games'}"
+                          class="nav-link"
+                          v-bind:class="{active: isCurrentPage('games')}">
+               Игры
+             </router-link>
+        </li>
+      </ul>
+    </div>
     <router-view></router-view>
   </div>
 </template>
