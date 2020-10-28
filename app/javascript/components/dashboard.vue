@@ -1,10 +1,10 @@
 <template>
   <div>
     <div>
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
+      <ul class="flex border-b" role="tablist">
+        <li class="-mb-px mr-1">
              <router-link :to="{name: 'games'}"
-                          class="nav-link"
+                          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
                           v-bind:class="{active: isCurrentPage('games')}">
                Игры
              </router-link>
@@ -14,6 +14,12 @@
     <router-view></router-view>
   </div>
 </template>
+
+<style>
+  .active {
+    @apply bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold;
+  }
+</style>
 
 <script>
   import { CommonMixin } from 'mixins/common'

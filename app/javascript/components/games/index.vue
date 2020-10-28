@@ -13,7 +13,7 @@
                  v-model='newGame.size'/>
         </div>
         <button type="button"
-                class='btn btn-blue mt-3'
+                class='btn btn-blue"'
                 @click='selfCreateGame'
                 :disabled='!(newGame.size)'>
           Новая игра
@@ -39,6 +39,18 @@
     <router-view></router-view>
   </div>
 </template>
+
+<style>
+  .btn {
+    @apply font-bold py-2 px-4 rounded;
+  }
+  .btn-blue {
+    @apply bg-blue-500 text-white;
+  }
+  .btn-blue:hover {
+    @apply bg-blue-600;
+  }
+</style>
 
 <script>
   import { CommonMixin } from 'mixins/common'

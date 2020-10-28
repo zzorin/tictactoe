@@ -1,8 +1,8 @@
 <template>
   <div>
-    <table>
+    <table class="table-auto">
       <tr v-for='row in currentGame.size'>
-        <td v-for='col in currentGame.size'>
+        <td class="border px-4 py-2" v-for='col in currentGame.size'>
           1
         </td>
       </tr>
