@@ -10,4 +10,11 @@ class GameChannel < ApplicationCable::Channel
       GameChannel.broadcast_to(listener, data)
     end
   end
+
+  def start_game(data)
+    Game.find_by_id(data['game_id'])&.start!
+    User.all.each do |listener|
+      GameChannel.broadcast_to(listener, data)
+    end
+  end
 end
