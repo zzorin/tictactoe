@@ -32,6 +32,6 @@ class GamesController < ApplicationController
   private
 
     def game_params
-      params.require(:game).permit(:size)
+      params.require(:game).permit(:size, :participant_id, participants_attributes: [:id, :user_id, :role])
     end
 end
