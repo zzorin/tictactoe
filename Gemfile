@@ -32,6 +32,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'awesome_print'
 gem 'simple-navigation'
+gem 'aasm'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
