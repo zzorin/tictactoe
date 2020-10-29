@@ -3,4 +3,11 @@ class GameChannel < ApplicationCable::Channel
     logger.info "AccessorsNewSessionsChannel => subscribed"
     stream_for current_user
   end
+
+  def make_move(data)
+    # ActionCable.server.broadcast 'OnlineGamersChannel', '1'
+    User.all.each do |listener|
+      GameChannel.broadcast_to(listener, data)
+    end
+  end
 end

@@ -31,7 +31,7 @@
     channels: {
       OnlineGamersChannel: {
         connected() {
-          console.log('Connected to the chat channel')
+          console.log('Connected to the online gamers channel')
           // this.install()
           // this.update()
         },
