@@ -16,6 +16,7 @@ export const participantsStore = {
     setCurrentParticipant(state, params) {
       let { participant } = params
       state.currentParticipant = participant
+      console.log(params)
     },
     createParticipant(state, params) {
       let { resolve, reject } = params
@@ -40,10 +41,22 @@ export const participantsStore = {
         })
       })
     },
+    // getParticipant({ commit, state }, params) {
+    //   let { id } = params
+    //   return new Promise((resolve, reject) => {
+    //     Vue.http.get(`participants/${id}`, params).then(data => {
+    //       if (data.status && data.status == 200) {
+    //         commit('setCurrentParticipant', data.body)
+    //       }
+    //     })
+    //   })
+    // },
     getParticipant({ commit, state }, params) {
-      let { id } = params
+      console.log('getParticipant')
+      let { game_id, user_id } = params
       return new Promise((resolve, reject) => {
-        Vue.http.get(`participants/${id}`, params).then(data => {
+        Vue.http.get(`games/${game_id}/participants/by_user?user_id=${user_id}`, params).then(data => {
+          console.log(data)
           if (data.status && data.status == 200) {
             commit('setCurrentParticipant', data.body)
           }

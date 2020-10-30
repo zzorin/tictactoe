@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   end
 
   resources :games do
-    resources :participants
+    resources :participants do
+      collection do
+        get :by_user
+      end
+    end
   end
 end

@@ -6,6 +6,11 @@ class ParticipantsController < ApplicationController
     @participants = @game.participants.accessible_by(current_ability)
   end
 
+  def by_user
+    @game = Game.find(params[:game_id])
+    @participant = @game.participants&.find_by(user_id: params[:user_id])
+  end
+
   def show; end
 
   def create

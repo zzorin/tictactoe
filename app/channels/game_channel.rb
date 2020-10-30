@@ -5,7 +5,7 @@ class GameChannel < ApplicationCable::Channel
   end
 
   def make_move(data)
-    # ActionCable.server.broadcast 'OnlineGamersChannel', '1'
+    Move.create(game_id: data['game_id'], player: data['participant_role'], coordinate: data['coordinate'])
     User.all.each do |listener|
       GameChannel.broadcast_to(listener, data)
     end
