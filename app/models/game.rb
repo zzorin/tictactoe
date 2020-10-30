@@ -18,4 +18,13 @@ class Game < ApplicationRecord
       transitions from: :started, to: :finished
     end
   end
+
+  def check_game_progress(current_move)
+    # if self.moves.count == game.size**2
+    #   self.complete!
+    # end
+    # game.size.times.each do |i|
+    #
+    # end
+  end
 end

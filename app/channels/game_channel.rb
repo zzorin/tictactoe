@@ -5,7 +5,10 @@ class GameChannel < ApplicationCable::Channel
   end
 
   def make_move(data)
-    Move.create(game_id: data['game_id'], player: data['participant_role'], coordinate: data['coordinate'])
+    current_game = Game.find_by_id(data['game_id'])
+    current_move = current_game.moves.create(player: data['participant_role'], coordinate: data['coordinate'])
+    current_game.check_game_progress(current_move)
+    # Move.create(game_id: data['game_id'], player: data['participant_role'], coordinate: data['coordinate'])
     User.all.each do |listener|
       GameChannel.broadcast_to(listener, data)
     end
