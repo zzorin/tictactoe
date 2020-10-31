@@ -10,6 +10,8 @@ class GameChannel < ApplicationCable::Channel
     current_move = current_game.moves.create(player: data['participant_role'], x: coordinates[0], y: coordinates[1])
     current_game.check_game_progress(current_move)
     # Move.create(game_id: data['game_id'], player: data['participant_role'], coordinate: data['coordinate'])
+    data['game_state'] = current_game.aasm_state
+    data['game_winner'] = current_game.winner
     User.all.each do |listener|
       GameChannel.broadcast_to(listener, data)
     end

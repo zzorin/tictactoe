@@ -7,12 +7,20 @@
       Присоединиться к игре
     </button>
 
-    <table class="table-auto" v-if="currentGame.state == 'started'">
-      <tr v-for='row in currentGame.size'>
-        <td class="border px-4 py-2" v-for='col in currentGame.size' :id="col+'_'+row" @click='makeMove($event, row, col)'>
-        </td>
-      </tr>
-    </table>
+    <div v-if="currentGame.state == 'finished'">
+      {{getWinner()}}
+    </div>
+
+    <div v-if="currentGame.state == 'started'">
+      <h1>{{this.currentMoveType == this.currentParticipant.role ? 'Ваш ход' : 'Ход противника'}}</h1>
+
+      <table class="table-auto">
+        <tr v-for='row in currentGame.size'>
+          <td class="border px-4 py-2" v-for='col in currentGame.size' :id="col+'_'+row" @click='makeMove($event, row, col)'>
+          </td>
+        </tr>
+      </table>
+    </div>
 
     <table class="table-auto">
       <tr v-for='participant in participants'>
@@ -24,6 +32,8 @@
 
     {{currentParticipant}}
 
+    {{currentMoveType }}
+
   </div>
 </template>
 
@@ -32,6 +42,12 @@
   import { mapState, mapGetters, mapActions } from 'vuex'
 
   export default {
+    data() {
+      return {
+        id: this.$route.params.id,
+        currentMoveType: 'x'
+      }
+    },
     mixins: [CommonMixin],
     channels: {
       GameChannel: {
@@ -48,6 +64,11 @@
           }
           if (data['action'] == 'make_move') {
             document.getElementById(data['coordinate']).innerHTML = data['participant_role']
+            this.currentMoveType = data['participant_role'] == 'x' ? 'o' : 'x'
+            if (data['game_state'] == 'finished') {
+              this.$set(this.currentGame, 'state', data['game_state'])
+              this.$set(this.currentGame, 'winner', data['game_winner'])
+            }
           }
         }
       }
@@ -55,10 +76,7 @@
     computed: {
       ...mapState( 'games', ['currentGame']),
       ...mapState( 'participants', ['participants', 'currentParticipant']),
-      ...mapGetters('common', ['user']),
-      id() {
-        return this.$route.params.id
-      }
+      ...mapGetters('common', ['user'])
     },
     methods: {
       ...mapActions('games', ['getGame', 'updateGame']),
@@ -76,7 +94,11 @@
         this.getParticipants(params)
       },
       selfUpdateGame() {
-        let params = { game: {id: this.currentGame.id, participants_attributes: [{role: 'o', user_id: this.user.id}]} }
+        console.log('selfUpdateGame')
+        let exitstingParticipant = this.participants.find(participant => (participant.role == 'x' || participant.role == 'o'))
+        console.log(exitstingParticipant)
+        let newRole = exitstingParticipant['role'] == 'x' ? 'o' : 'x'
+        let params = { game: {id: this.currentGame.id, participants_attributes: [{role: newRole, user_id: this.user.id}]} }
         this.updateGame(params).then(data => {
           if (data.status == 'error') {
             this.notificate({
@@ -94,6 +116,9 @@
 
         })
       },
+      getWinner() {
+        return this.currentGame.winner ? `Победитель: ${this.currentGame.winner}` : 'Ничья'
+      },
       startGame() {
         console.log('startGame')
         this.$cable.perform({
@@ -107,8 +132,8 @@
       makeMove(event, x, y) {
         console.log('move')
         console.log(event)
-        if (event.target.innerHTML == '') {
-          // event.target.innerHTML = 'x'
+        if (event.target.innerHTML == '' && this.currentMoveType == this.currentParticipant.role) {
+          this.currentMoveType = this.currentParticipant.role == 'x' ? 'o' : 'x'
           this.$cable.perform({
             channel: 'GameChannel',
             action: 'make_move',
