@@ -16,15 +16,15 @@
         {{this.currentMoveType == this.currentParticipant.role ? 'Ваш ход' : 'Ход противника'}}
       </h1>
 
-      <table class="table-auto">
+      <table class="">
         <tr v-for='row in currentGame.size'>
-          <td class="border px-4 py-2" v-for='col in currentGame.size' :id="col+'_'+row" @click='makeMove($event, row, col)'>
+          <td class="" v-for='col in currentGame.size' :id="col+'_'+row" @click='makeMove($event, row, col)'>
           </td>
         </tr>
       </table>
     </div>
 
-    <table class="table-auto">
+    <table class="">
       <tr v-for='participant in participants'>
         <td>
           {{participant}}

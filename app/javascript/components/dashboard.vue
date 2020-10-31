@@ -1,13 +1,20 @@
 <template>
   <div>
     <div>
-      <ul class="flex border-b" role="tablist">
-        <li class="-mb-px mr-1">
-             <router-link :to="{name: 'games'}"
-                          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-                          v-bind:class="{active: isCurrentPage('games')}">
-               Игры
-             </router-link>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <router-link :to="{name: 'games'}"
+                       class="nav-link"
+                       v-bind:class="{active: isCurrentPage('games')}">
+            Игры
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{name: 'games'}"
+                       class="nav-link"
+                       v-bind:class="{active: isCurrentPage('rate')}">
+            Рейтинг игроков
+          </router-link>
         </li>
       </ul>
     </div>

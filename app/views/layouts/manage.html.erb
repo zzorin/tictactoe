@@ -11,7 +11,14 @@
   </head>
 
   <body>
-    <%= render_navigation %>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <a class="nav-link active" href="/player_menu">Меню</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/users/sign_out">Выход</a>
+      </li>
+    </ul>
     <div class='container'>
       <div id="app" :init-user="initParams(<%= @init_params.to_json %>)">
         <router-view></router-view>

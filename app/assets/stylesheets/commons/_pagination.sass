@@ -1,0 +1,34 @@
+.pagination
+  display: flex
+  justify-content: center
+  margin: 20px 0
+
+  li
+    height: 30px
+    width: 30px
+    a
+      display: inline-block
+      font-family: 'PTSans', Verdana, sans-serif
+      outline: none
+      cursor: pointer
+      height: 30px
+      width: 30px
+      text-align: center
+      color: #007bff
+
+      &:hover
+        color: #0056b3
+
+    &.active
+      a
+        color: #000
+        cursor: auto
+
+    &:last-child, &:first-child
+      > a
+        border-radius: 0
+
+      &.disabled
+        > a, > a:hover
+          cursor: auto
+          color: #000

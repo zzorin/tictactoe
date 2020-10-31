@@ -1,0 +1,103 @@
+.contests-list
+  .contests-list-table
+    margin-top: 40px
+
+    table
+      width: 100%
+      font-size: 18px
+
+      tr
+        td
+          padding: 5px 10px
+
+      thead
+        tr th
+          white-space: nowrap
+
+      tbody
+        tr
+          &:nth-child(odd)
+            background: #F2F2F2
+
+.criterions-list, .nominations-list
+  margin-top: 40px
+  font-size: 18px
+
+.marks-wrapper
+  h2
+    font-size: 24px
+    margin-bottom: 15px
+
+  .left-menu-nav
+    li
+      width: 100%
+
+    a
+      color: #005DA6
+      display: block
+
+      &:hover
+        color: #0056b3
+
+      &.active:hover
+        color: #fff
+
+  .marks-table-wrapper
+    overflow: auto
+    width: 100%
+
+    table
+      width: 100%
+      font-size: 14px
+
+      th, td
+        text-align: center
+        vertical-align: middle
+
+    .mark-slecting
+      width: 55px
+      margin: 0 auto
+
+    .mark-result
+      width: 90px
+
+.user-nav
+  a
+    padding: 6px 10px
+    border-radius: 5px
+
+    &:hover
+      color: #fff
+      background: #0390C8
+      text-decoration: none
+
+.results-table-wrapper
+  margin-top: 20px
+  font-size: 14px
+  line-height: 18px
+  overflow: auto
+  max-height: 600px
+  max-width: 100%
+  .sticky-left
+    background-color: #f1f1f1
+    border: none
+    position: sticky
+    top: 120px
+  .left-number
+    left: 0
+  .left-organization
+    left: 40px
+  .left-name
+    left: 144px
+
+  th
+    background-color: #f1f1f1
+    position: sticky
+  .sticky-header
+    th
+      top: 0
+      border: none
+  .sticky-criterion
+    th
+      top: 78px
+      border: none

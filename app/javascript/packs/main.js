@@ -10,7 +10,7 @@ import baseStore from 'store/base'
 import { routes } from 'routes/index'
 import interceptorsSetup from 'interceptors'
 import ActionCableVue from 'actioncable-vue'
-import './application.css'
+// import './application.css'
 // import VModal from 'vue-js-modal'
 
 Vue.use(VueRouter)

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root 'dashboard#index'
+  root 'player_menu/spa#index'
 
   namespace :player_menu do
     root to: 'spa#index'

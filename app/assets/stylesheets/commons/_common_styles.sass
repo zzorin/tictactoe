@@ -1,0 +1,100 @@
+@import 'paddings_and_margins_generators'
+
+body
+  font-family: 'PT Sans', Verdana, sans-serif
+  font-weight: 400
+  font-size: 16px
+
+  h1
+    font-size: 40px
+    margin-top: 30px
+    margin-bottom: 20px
+
+  .table
+    td, th
+      border: 1px solid #dee2e6
+
+  .cursor-pointer
+    cursor: pointer
+
+  .background-color-white-important
+    background-color: #fff !important
+
+  .btn
+    cursor: pointer
+
+    &.btn-blue
+      background-color: #335ba6
+      border-bottom: 2px solid #1d3963
+      display: inline-block
+      color: #fff
+      border-radius: 0
+
+      &:hover
+        background-color: #4466a6
+
+      &:disabled
+        border: 0
+        background-color: #6693b0
+        opacity: 1
+        border-bottom: 2px solid #357599
+
+    &.btn-light-blue
+      background-color: #6db4f2
+      border-bottom: 2px solid #008bdc
+      display: inline-block
+      color: #fff
+      border-radius: 0
+
+      &:hover
+        background-color: #7dbdf3
+
+    &.btn-green
+      background-color: #00ad44
+      border-bottom: 2px solid #008f37
+      display: inline-block
+      color: #fff
+      border-radius: 0
+
+      &:hover
+        background-color: #6ab967
+
+  .background-gray
+    background-color: #f2f2f2
+    border-bottom: 3px solid #dadada
+
+    &.with-paddings
+      padding: 20px
+
+  .header-with-button
+    float: left
+    margin-right: 20px
+
+  .col-xs-3, .col-xs-9
+    float: left
+
+  .input-with-button
+    width: 700px
+    max-width: 100%
+    margin-right: 15px
+
+  .dark-grey-select
+    background: #6C757D!important
+    color: white!important
+
+    &:hover, &:focus
+      box-shadow: none
+      border: none
+
+  .autocomplete
+    .autocomplete__inputs
+      input
+        height: 40px
+    .autocomplete__icon
+      height: auto
+
+  +media-breakpoint-down(xs)
+    font-size: 14px
+
+    h1
+      font-size: 30px
