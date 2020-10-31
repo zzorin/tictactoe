@@ -32,7 +32,9 @@
 
     {{currentParticipant}}
 
-    {{currentMoveType }}
+    {{ currentMoveType }}
+
+    {{ currentGame }}
 
   </div>
 </template>

@@ -14,33 +14,32 @@ class Game < ApplicationRecord
       transitions from: :created, to: :started
     end
 
-    event :finish do
+    event :finish, after: :set_winner do
       transitions from: :started, to: :finished
     end
   end
 
   def check_game_progress(current_move)
-    if self.moves.count == self.size**2
-      self.finish!
-    end
     puts 'y'
-    (1..self.size).each do |i|
-      puts self.moves.find_by(x: current_move.x, y: i)&.id
-      break if self.moves.find_by(x: current_move.x, y: i)&.player != current_move.player
-      self.finish!(current_move.player) if i == self.size
-    end
-    puts 'x'
-    (1..self.size).each do |i|
-      puts self.moves.find_by(x: i, y: current_move.y)&.id
-      break if self.moves.find_by(x: i, y: current_move.y)&.player != current_move.player
-      self.finish!(current_move.player) if i == self.size
-    end
+    return self.finish!(current_move.player) if self.moves.where(x: current_move.x).count == self.size ||
+                                                self.moves.where(y: current_move.y).count == self.size
+    # (1..self.size).each do |i|
+    #   puts self.moves.find_by(x: current_move.x, y: i)&.id
+    #   break if self.moves.find_by(x: current_move.x, y: i)&.player != current_move.player
+    #   return self.finish!(current_move.player) if i == self.size
+    # end
+    # puts 'x'
+    # (1..self.size).each do |i|
+    #   puts self.moves.find_by(x: i, y: current_move.y)&.id
+    #   break if self.moves.find_by(x: i, y: current_move.y)&.player != current_move.player
+    #   return self.finish!(current_move.player) if i == self.size
+    # end
     puts 'diag'
     if current_move.x == current_move.y
       (1..self.size).each do |i|
         puts self.moves.find_by(x: i, y: i)&.id
         break if self.moves.find_by(x: i, y: i)&.player != current_move.player
-        self.finish!(current_move.player) if i == self.size
+        return self.finish!(current_move.player) if i == self.size
       end
     end
     puts 'antidiag'
@@ -48,8 +47,16 @@ class Game < ApplicationRecord
       (1..self.size).each do |i|
         puts self.moves.find_by(x: i, y: (self.size + 1) - i)&.id
         break if self.moves.find_by(x: i, y: (self.size + 1) - i)&.player != current_move.player
-        self.finish!(current_move.player) if i == self.size
+        return self.finish!(current_move.player) if i == self.size
       end
     end
+    puts 'nichya'
+    if self.moves.count == self.size**2
+      return self.finish!
+    end
+  end
+
+  def set_winner(winner = nil)
+    self.update(winner: winner)
   end
 end
