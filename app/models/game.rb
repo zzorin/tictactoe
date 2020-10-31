@@ -21,8 +21,8 @@ class Game < ApplicationRecord
 
   def check_game_progress(current_move)
     puts 'y'
-    return self.finish!(current_move.player) if self.moves.where(x: current_move.x).count == self.size ||
-                                                self.moves.where(y: current_move.y).count == self.size
+    return self.finish!(current_move.player) if self.moves.where(x: current_move.x, player: current_move.player).count == self.size ||
+                                                self.moves.where(y: current_move.y, player: current_move.player).count == self.size
     # (1..self.size).each do |i|
     #   puts self.moves.find_by(x: current_move.x, y: i)&.id
     #   break if self.moves.find_by(x: current_move.x, y: i)&.player != current_move.player
