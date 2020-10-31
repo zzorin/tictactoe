@@ -23,7 +23,8 @@ ActiveRecord::Schema.define(version: 2020_10_30_103411) do
   end
 
   create_table "moves", force: :cascade do |t|
-    t.string "coordinate"
+    t.integer "x"
+    t.integer "y"
     t.string "player"
     t.bigint "game_id", null: false
     t.datetime "created_at", precision: 6, null: false

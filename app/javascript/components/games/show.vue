@@ -9,7 +9,7 @@
 
     <table class="table-auto" v-if="currentGame.state == 'started'">
       <tr v-for='row in currentGame.size'>
-        <td class="border px-4 py-2" v-for='col in currentGame.size' :id="row+'_'+col" @click='makeMove($event, row, col)'>
+        <td class="border px-4 py-2" v-for='col in currentGame.size' :id="col+'_'+row" @click='makeMove($event, row, col)'>
         </td>
       </tr>
     </table>
@@ -87,6 +87,7 @@
             return
           }
           if (data.status == 200) {
+            this.selfGetParticipant()
             this.selfGetParticipants()
             this.startGame()
           }
