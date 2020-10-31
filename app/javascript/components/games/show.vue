@@ -3,7 +3,7 @@
     <button type="button"
             class='btn btn-blue"'
             @click='selfUpdateGame'
-            v-if="currentGame.state == 'created'">
+            v-if="canJoinGame()">
       Присоединиться к игре
     </button>
 
@@ -11,8 +11,10 @@
       {{getWinner()}}
     </div>
 
-    <div v-if="currentGame.state == 'started'">
-      <h1>{{this.currentMoveType == this.currentParticipant.role ? 'Ваш ход' : 'Ход противника'}}</h1>
+    <div>
+      <h1 v-if="currentGame.state == 'started'">
+        {{this.currentMoveType == this.currentParticipant.role ? 'Ваш ход' : 'Ход противника'}}
+      </h1>
 
       <table class="table-auto">
         <tr v-for='row in currentGame.size'>
@@ -118,6 +120,9 @@
 
         })
       },
+      canJoinGame() {
+        return this.currentGame.state == 'created' && !this.currentParticipant.id
+      },
       getWinner() {
         return this.currentGame.winner ? `Победитель: ${this.currentGame.winner}` : 'Ничья'
       },
@@ -134,7 +139,7 @@
       makeMove(event, x, y) {
         console.log('move')
         console.log(event)
-        if (event.target.innerHTML == '' && this.currentMoveType == this.currentParticipant.role) {
+        if (this.currentGame.state == 'started' && event.target.innerHTML == '' && this.currentMoveType == this.currentParticipant.role) {
           this.currentMoveType = this.currentParticipant.role == 'x' ? 'o' : 'x'
           this.$cable.perform({
             channel: 'GameChannel',
