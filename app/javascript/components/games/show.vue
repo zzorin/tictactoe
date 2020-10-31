@@ -54,7 +54,7 @@
     },
     mixins: [CommonMixin],
     channels: {
-      GameChannel: {
+      GamesChannel: {
         connected() {
           console.log('Connected to the game channel')
           // this.install()
@@ -129,7 +129,8 @@
       startGame() {
         console.log('startGame')
         this.$cable.perform({
-          channel: 'GameChannel',
+          channel: 'GamesChannel',
+          game_id: this.id,
           action: 'start_game',
           data: {
              game_id: this.currentGame.id
@@ -142,7 +143,8 @@
         if (this.currentGame.state == 'started' && event.target.innerHTML == '' && this.currentMoveType == this.currentParticipant.role) {
           this.currentMoveType = this.currentParticipant.role == 'x' ? 'o' : 'x'
           this.$cable.perform({
-            channel: 'GameChannel',
+            channel: 'GamesChannel',
+            game_id: this.id,
             action: 'make_move',
             data: {
                game_id: this.currentGame.id,
@@ -162,7 +164,8 @@
       this.selfGetParticipants()
       this.$cable.connection.connect(`/cable?uid=${this.$store.getters['common/user']['id']}&access_token=${this.$store.getters['common/authenticity_token']}`)
       this.$cable.subscribe({
-        channel: 'GameChannel'
+        channel: 'GamesChannel',
+        game_id: this.id
       })
     }
   }

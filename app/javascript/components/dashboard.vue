@@ -32,8 +32,6 @@
       OnlineGamersChannel: {
         connected() {
           console.log('Connected to the online gamers channel')
-          // this.install()
-          // this.update()
         },
         received(data) {
           console.log(data)
@@ -47,42 +45,6 @@
       }
     },
     methods: {
-      install() {
-        window.addEventListener("focus", this.update)
-        window.addEventListener("blur", this.update)
-        document.addEventListener("turbolinks:load", this.update)
-        document.addEventListener("visibilitychange", this.update)
-      },
-      update() {
-        this.documentIsActive ? this.appear() : this.away()
-      },
-      appear() {
-        // Вызывает `AppearanceChannel#appear(data)` на сервере.
-        // this.perform("appear", { appearing_on: this.appearingOn })
-        this.$cable.perform({
-          channel: 'OnlineGamersChannel',
-          action: 'appear',
-          data: {
-             appearing_on: this.appearingOn
-          }
-        })
-      },
-
-      away() {
-        // Вызывает `AppearanceChannel#away` на сервере.
-        // this.perform("away")
-        this.$cable.perform({
-          channel: 'OnlineGamersChannel',
-          action: 'away'
-        })
-      },
-      documentIsActive() {
-        return document.visibilityState == "visible" && document.hasFocus()
-      },
-      appearingOn() {
-       const element = document.querySelector("[data-appearing-on]")
-       return element ? element.getAttribute("data-appearing-on") : null
-     }
     },
     created() {
       console.warn('Dashboard')
