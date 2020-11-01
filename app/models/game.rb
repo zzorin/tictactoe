@@ -1,7 +1,8 @@
 class Game < ApplicationRecord
-  has_many :participants
-  has_many :moves
+  has_many :participants, dependent: :destroy
+  has_many :moves, dependent: :destroy
   accepts_nested_attributes_for :participants
+  validates :size, presence: true
 
   include AASM
 
