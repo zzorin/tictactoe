@@ -50,8 +50,6 @@
       GamesChannel: {
         connected() {
           console.log('Connected to the game channel')
-          // this.install()
-          // this.update()
         },
         received(data) {
           console.log(data)
@@ -60,8 +58,14 @@
             this.selfGetGame()
           }
           if (data['action'] == 'make_move') {
-            document.getElementById(data['coordinate']).innerHTML = data['participant_role']
-            this.currentMoveType = data['participant_role'] == 'x' ? 'o' : 'x'
+            let currentCell = document.getElementById(data['coordinate'])
+            if (data['participant_role'] == 'x') {
+              this.currentMoveType  = 'o'
+              currentCell.className = currentCell.className + ' x-icon'
+            } else {
+              this.currentMoveType  = 'x'
+              currentCell.className = currentCell.className + ' o-icon'
+            }
             if (data['game_state'] == 'finished') {
               this.$set(this.currentGame, 'state', data['game_state'])
               this.$set(this.currentGame, 'winner', data['game_winner'])
