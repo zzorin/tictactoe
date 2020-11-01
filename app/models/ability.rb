@@ -5,9 +5,7 @@ class Ability
 
   def initialize(user)
     if user.present?
-      if true
-        can :manage, :all
-      end
+      can :manage, :all
     end
 
   end

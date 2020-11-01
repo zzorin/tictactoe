@@ -31,10 +31,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 gem 'cancancan'
 gem 'awesome_print'
-gem 'simple-navigation'
 gem 'aasm'
 gem 'bootstrap'
-gem 'font-awesome-sass', '~> 5.15.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
