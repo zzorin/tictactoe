@@ -14,6 +14,22 @@ body
     td, th
       border: 1px solid #dee2e6
 
+  @for $i from 3 through 10
+    .game-size-#{$i}
+      width: calc(100% / #{$i})
+      padding-bottom: calc(100% / #{$i})
+
+  .game-table
+    margin-left: auto
+    margin-right: auto
+    border-collapse: collapse
+    td
+      border: 1px solid #dee2e6
+      display: inline-block
+      text-align: center
+      cursor: pointer
+
+
   .cursor-pointer
     cursor: pointer
 

@@ -9,24 +9,11 @@
             Игры
           </router-link>
         </li>
-        <li class="nav-item">
-          <router-link :to="{name: 'games'}"
-                       class="nav-link"
-                       v-bind:class="{active: isCurrentPage('rate')}">
-            Рейтинг игроков
-          </router-link>
-        </li>
       </ul>
     </div>
     <router-view></router-view>
   </div>
 </template>
-
-<style>
-  .active {
-    @apply bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold;
-  }
-</style>
 
 <script>
   import { CommonMixin } from 'mixins/common'
@@ -54,8 +41,9 @@
     methods: {
     },
     created() {
-      console.warn('Dashboard')
-      this.$cable.connection.connect(`/cable?uid=${this.$store.getters['common/user']['id']}&access_token=${this.$store.getters['common/authenticity_token']}`)
+      this.$cable.connection.connect(
+        `/cable?uid=${this.$store.getters['common/user']['id']}&access_token=${this.$store.getters['common/authenticity_token']}`
+      )
       this.$cable.subscribe({
         channel: 'OnlineGamersChannel'
       })

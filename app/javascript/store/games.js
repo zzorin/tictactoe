@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 export const gamesStore = {
   state: {
-    newGame: {},
+    newGame: {size: 3, participant_role: 'x'},
     currentGame: {},
     games: []
   },

@@ -41,16 +41,6 @@ export const participantsStore = {
         })
       })
     },
-    // getParticipant({ commit, state }, params) {
-    //   let { id } = params
-    //   return new Promise((resolve, reject) => {
-    //     Vue.http.get(`participants/${id}`, params).then(data => {
-    //       if (data.status && data.status == 200) {
-    //         commit('setCurrentParticipant', data.body)
-    //       }
-    //     })
-    //   })
-    // },
     getParticipant({ commit, state }, params) {
       console.log('getParticipant')
       let { game_id, user_id } = params

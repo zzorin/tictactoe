@@ -1,33 +1,29 @@
 <template>
   <div>
-    <div v-if='isCurrentPage("games")' class="games-list margin-bottom-40">
-      <h1>Игра</h1>
-      <div class="">
-        <div class="mb-1">
-          <strong>Размер поля</strong>
-          <span class="text-danger">*</span>
+    <div v-if='isCurrentPage("games")'>
+      <form class="form-inline mt-2"">
+        <div class="form-group mr-2">
+          <label for="newGameSize">Размер поля</label>
+          <select class="form-control ml-1" id="newGameSize" v-model='newGame.size'>
+            <option v-for='size in fieldSizes()'>
+              {{ size }}
+            </option>
+          </select>
         </div>
-        <div class="d-flex">
-          <input type="text"
-                 class="input-with-button form-control"
-                 v-model='newGame.size'/>
+        <div class="form-check mr-2">
+          <input class="form-check-input" type="radio" id="newGameX" value="x" v-model='newGame.participant_role'>
+          <label class="form-check-label" for="newGameX">
+            x
+          </label>
         </div>
-        <div class="mb-1">
-          <strong>Тип игрока</strong>
-          <span class="text-danger">*</span>
+        <div class="form-check mr-2">
+          <input class="form-check-input" type="radio" id="newGameO" value="o" v-model='newGame.participant_role'>
+          <label class="form-check-label" for="newGameO">
+            o
+          </label>
         </div>
-        <div class="d-flex">
-          <input type="text"
-                 class="input-with-button form-control"
-                 v-model='newGame.participant_role'/>
-        </div>
-        <button type="button"
-                class='btn btn-blue"'
-                @click='selfCreateGame'
-                :disabled='!(newGame.size)'>
-          Новая игра
-        </button>
-      </div>
+        <button type="submit" class="btn btn-primary mr-2" @click='selfCreateGame()' :disabled='!(newGame.size && newGame.participant_role)'>Новая игра</button>
+      </form>
       <div class="">
         <table>
           <thead>
@@ -62,14 +58,24 @@
     },
     methods: {
       ...mapActions('games', ['clearNewGame', 'getGames', 'createGame']),
+      fieldSizes() {
+        return Array(8).fill().map((_, i) => i + 3)
+      },
       selfGetGames() {
-        // let params = {
-        //   contest_id: this.currentContest.id,
-        // }
         this.getGames()
       },
       selfCreateGame() {
-        let params = { game: {size: this.newGame.size, participants_attributes: [{role: this.newGame.participant_role, user_id: this.user.id}]} }
+        let params = {
+          game: {
+            size: this.newGame.size,
+            participants_attributes: [
+              {
+                role: this.newGame.participant_role,
+                user_id: this.user.id
+              }
+            ]
+          }
+        }
         this.createGame(params).then(data => {
           if (data.status == 'error') {
             this.notificate({
@@ -80,20 +86,13 @@
             return
           }
           if (data.status == 200) {
-            // this.notificate({
-            //   title: data.notifications.title,
-            //   text: data.notifications.text
-            // })
             this.broadcastGame(data.id)
             this.clearNewGame()
             this.$router.push(`games/${data.id}`)
           }
-
         })
       },
       broadcastGame(game_id) {
-        // Вызывает `AppearanceChannel#appear(data)` на сервере.
-        // this.perform("appear", { appearing_on: this.appearingOn })
         this.$cable.perform({
           channel: 'OnlineGamersChannel',
           action: 'create_game',
@@ -104,7 +103,6 @@
       }
     },
     created() {
-      console.warn('Игры')
       this.selfGetGames()
     }
   }

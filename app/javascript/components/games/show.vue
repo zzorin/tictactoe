@@ -1,43 +1,36 @@
 <template>
   <div>
+    <div class="d-flex align-items-center m-2"
+         v-if="currentGame.state == 'created' && this.currentParticipant.id">
+      <strong>Ожидание игроков...</strong>
+      <div class="spinner-border ml-1" role="status" aria-hidden="true"></div>
+    </div>
     <button type="button"
-            class='btn btn-blue"'
+            class='btn btn-primary m-2'
             @click='selfUpdateGame'
             v-if="canJoinGame()">
       Присоединиться к игре
     </button>
 
-    <div v-if="currentGame.state == 'finished'">
+    <strong v-if="currentGame.state == 'finished'">
       {{getWinner()}}
-    </div>
+    </strong>
 
     <div>
-      <h1 v-if="currentGame.state == 'started'">
-        {{this.currentMoveType == this.currentParticipant.role ? 'Ваш ход' : 'Ход противника'}}
-      </h1>
-
-      <table class="">
-        <tr v-for='row in currentGame.size'>
-          <td class="" v-for='col in currentGame.size' :id="col+'_'+row" @click='makeMove($event, row, col)'>
-          </td>
-        </tr>
-      </table>
+      <strong v-if="currentGame.state == 'started'">
+        {{currentMoveType == currentParticipant.role ? 'Ваш ход' : 'Ход противника'}}
+      </strong>
+      <div class="row">
+        <table class="table game-table col-md-6 col-md-offset-3">
+          <tr v-for='row in currentGame.size'>
+            <td v-bind:class="'game-size-' + currentGame.size"
+                v-for='col in currentGame.size' :id="col+'_'+row"
+                @click='makeMove($event, row, col)'>
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
-
-    <table class="">
-      <tr v-for='participant in participants'>
-        <td>
-          {{participant}}
-        </td>
-      </tr>
-    </table>
-
-    {{currentParticipant}}
-
-    {{ currentMoveType }}
-
-    {{ currentGame }}
-
   </div>
 </template>
 
