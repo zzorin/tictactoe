@@ -25,17 +25,26 @@
         <button type="button" class="btn btn-primary mr-2" @click='selfCreateGame()' :disabled='!(newGame.size && newGame.participant_role)'>Новая игра</button>
       </form>
       <div class="">
-        <table>
+        <h3>Активные игры:</h3>
+        <table class="table">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>SIZE</th>
+              <th>Размер поля</th>
+              <th>Игрок</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for='game in games'>
-              <td>{{game.id}}</td>
+            <tr v-for='game in activeGames'>
               <td>{{game.size}}</td>
+              <td>
+                {{ game.creator_email }} - {{ game.creator_role }}
+              </td>
+              <td>
+                <router-link :to="{name: 'game_show', params: {id: game.id}}">
+                  Подкючиться
+                </router-link>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -53,16 +62,19 @@
   export default {
     mixins: [CommonMixin, NotificationsMixin],
     computed: {
-      ...mapState( 'games', ['games', 'newGame']),
+      ...mapState( 'games', ['games', 'newGame', 'activeGames']),
       ...mapGetters('common', ['user'])
     },
     methods: {
-      ...mapActions('games', ['clearNewGame', 'getGames', 'createGame']),
+      ...mapActions('games', ['clearNewGame', 'getGames', 'getActiveGames', 'createGame']),
       fieldSizes() {
         return Array(8).fill().map((_, i) => i + 3)
       },
       selfGetGames() {
         this.getGames()
+      },
+      selfGetActiveGames() {
+        this.getActiveGames()
       },
       selfCreateGame() {
         let params = {
@@ -103,7 +115,7 @@
       }
     },
     created() {
-      this.selfGetGames()
+      this.selfGetActiveGames()
     }
   }
 </script>

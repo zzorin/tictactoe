@@ -3,6 +3,10 @@ class GamesController < ApplicationController
 
   def index; end
 
+  def active_games
+    @active_games = Game.where(aasm_state: 'created')
+  end
+
   def show; end
 
   def create

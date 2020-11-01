@@ -4,7 +4,8 @@ export const gamesStore = {
   state: {
     newGame: {size: 3, participant_role: 'x'},
     currentGame: {},
-    games: []
+    games: [],
+    activeGames: []
   },
   mutations: {
     clearNewGame(state) {
@@ -12,6 +13,9 @@ export const gamesStore = {
     },
     setGames(state, games) {
       state.games = games
+    },
+    setActiveGames(state, games) {
+      state.activeGames = games
     },
     setCurrentGame(state, params) {
       let { game } = params
@@ -35,6 +39,15 @@ export const gamesStore = {
         Vue.http.get(`/games`).then(data => {
           if (data.ok && data.status == 200) {
             commit('setGames', data.body)
+          }
+        })
+      })
+    },
+    getActiveGames({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        Vue.http.get(`/games/active_games`).then(data => {
+          if (data.ok && data.status == 200) {
+            commit('setActiveGames', data.body)
           }
         })
       })

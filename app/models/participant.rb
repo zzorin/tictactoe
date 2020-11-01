@@ -1,6 +1,7 @@
 class Participant < ApplicationRecord
   belongs_to :user
   belongs_to :game
+  scope :players, -> { where(role: ['x', 'o']) }
 
-  # ROLES = %i(x_player o_player spectator).freeze
+  # ROLES = %w(x_player o_player spectator).freeze
 end
