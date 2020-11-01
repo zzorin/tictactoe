@@ -22,7 +22,7 @@
             o
           </label>
         </div>
-        <button type="submit" class="btn btn-primary mr-2" @click='selfCreateGame()' :disabled='!(newGame.size && newGame.participant_role)'>Новая игра</button>
+        <button type="button" class="btn btn-primary mr-2" @click='selfCreateGame()' :disabled='!(newGame.size && newGame.participant_role)'>Новая игра</button>
       </form>
       <div class="">
         <table>
