@@ -12,9 +12,9 @@
       Присоединиться к игре
     </button>
 
-    <strong v-if="currentGame.state == 'finished'">
+    <h3 v-if="currentGame.state == 'finished'">
       {{getWinner()}}
-    </strong>
+    </h3>
 
     <div>
       <strong v-if="currentGame.state == 'started'">
@@ -113,8 +113,15 @@
             this.selfGetParticipant()
             this.selfGetParticipants()
             this.startGame()
+            this.broadcastGameStarting(data.id)
           }
 
+        })
+      },
+      broadcastGameStarting(game_id) {
+        this.$cable.perform({
+          channel: 'OnlineGamersChannel',
+          action: 'close_game'
         })
       },
       canJoinGame() {

@@ -18,6 +18,7 @@
 <script>
   import { CommonMixin } from 'mixins/common'
   import { NotificationsMixin } from 'mixins/notifications'
+  import { mapState, mapActions } from 'vuex'
   export default {
     mixins: [CommonMixin, NotificationsMixin],
     computed: {
@@ -29,18 +30,23 @@
         },
         received(data) {
           console.log(data)
-          console.log('Message received')
-          if (!this.isCurrentPage('game_show')) {
+          console.log('OnlineGamersChannel: Message received')
+          if (data['action'] == 'create_game' && !this.isCurrentPage('game_show')) {
             this.notificate({
               title: 'Новая игра',
-              text: data,
+              text: data['game_id'],
               type: 'success'
             })
           }
+          this.selfGetActiveGames()
         }
       }
     },
     methods: {
+      ...mapActions('games', ['getActiveGames']),
+      selfGetActiveGames() {
+        this.getActiveGames()
+      }
     },
     created() {
       this.$cable.connection.connect(

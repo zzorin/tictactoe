@@ -5,6 +5,10 @@ class OnlineGamersChannel < ApplicationCable::Channel
   end
 
   def create_game(data)
-    ActionCable.server.broadcast("OnlineGamersChannel", data['game_id'])
+    ActionCable.server.broadcast("OnlineGamersChannel", data)
+  end
+
+  def close_game(data)
+    ActionCable.server.broadcast("OnlineGamersChannel", data)
   end
 end
