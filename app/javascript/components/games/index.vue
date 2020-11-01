@@ -115,6 +115,7 @@
       }
     },
     created() {
+      console.log('Games Index')
       this.selfGetActiveGames()
     }
   }
