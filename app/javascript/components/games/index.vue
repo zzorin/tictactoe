@@ -42,7 +42,7 @@
               </td>
               <td>
                 <router-link :to="{name: 'game_show', params: {id: game.id}}">
-                  Подкючиться
+                  Подключиться
                 </router-link>
               </td>
             </tr>
