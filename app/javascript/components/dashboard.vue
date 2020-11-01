@@ -30,11 +30,13 @@
         received(data) {
           console.log(data)
           console.log('Message received')
-          this.notificate({
-            title: 'Новая игра',
-            text: data,
-            type: 'success'
-          })
+          if (!this.isCurrentPage('game_show')) {
+            this.notificate({
+              title: 'Новая игра',
+              text: data,
+              type: 'success'
+            })
+          }
         }
       }
     },

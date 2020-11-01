@@ -136,7 +136,6 @@
       },
       makeMove(event, x, y) {
         console.log('move')
-        console.log(event)
         if (this.currentGame.state == 'started' && event.target.innerHTML == '' && this.currentMoveType == this.currentParticipant.role) {
           this.currentMoveType = this.currentParticipant.role == 'x' ? 'o' : 'x'
           this.$cable.perform({
